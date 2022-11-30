@@ -2,6 +2,8 @@
 <br />
 <% @results.each do |post| %>
 	<p>
+		<h4>Author: <%= post['username'] %></h4>
+		<br />
 		<%= post['content'] %>
 		<br />
 		<br />
