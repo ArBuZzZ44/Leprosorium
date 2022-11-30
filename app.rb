@@ -41,9 +41,13 @@ end
 
 post '/new' do
 	@content = params[:content]
+	@username = params[:username]
 
 	if @content.length <= 0
 		@error = "Type text"
+		return erb :new
+	elsif @username.length <= 0
+		@error = "Enter a name"
 		return erb :new
 	end
 
