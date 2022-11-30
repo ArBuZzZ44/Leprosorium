@@ -26,7 +26,7 @@ configure do
 		(
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			created_date DATE,
-			content TEXT,
+			comment TEXT,
 			post_id INTEGER
 		)' 
 end
@@ -70,9 +70,14 @@ end
 
 post '/details/:id' do
 	post_id = params[:id]
-	content = params[:content]
+	@comment = params[:comment]
 
-	@db.execute 'insert into Comments (content, created_date, post_id) values (?, datetime(), ?)', [content, post_id]
+	if @comment.length <= 0
+		@error = "Type comment"
+		redirect to ('/details/' + post_id)
+	end
+
+	@db.execute 'insert into Comments (comment, created_date, post_id) values (?, datetime(), ?)', [@comment, post_id]
 
 	redirect to ('/details/' + post_id)
 
